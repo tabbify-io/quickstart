@@ -1,22 +1,16 @@
+# The whole app config. Tabbify builds the image and picks where to run it.
 [app]
 name = "quickstart"
 
 [build]
-kind    = "docker"      # built as an OCI image…
-builder = "thinkpad"    # …on the ThinkPad's Firecracker build sandbox
+kind = "docker"        # build the Dockerfile into an image
 
 [runtime]
-type             = "firecracker"   # …and run as a microVM
-lifecycle        = "on_request"    # spun up on the first request, idles out
+type             = "firecracker"   # run each app in its own microVM
+lifecycle        = "on_request"    # start on the first request, idle out when unused
 idle_timeout_sec = 300
 memory_mb        = 256
 vcpus            = 1
 
 [routes]
-dynamic_prefixes = ["/"]           # every path is forwarded to the app
-
-[[deploy]]
-supervisor = "thinkpad"            # run on the ThinkPad node
-runtime    = "firecracker"
-
-[env]
+dynamic_prefixes = ["/"]           # forward every path to the app
