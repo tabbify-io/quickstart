@@ -1,9 +1,13 @@
-# The whole app config. Tabbify builds the image and picks where to run it.
+# The whole app config. Normally you'd omit [build].builder and the [[deploy]]
+# block entirely — Tabbify picks a build host and a run host for you (see
+# https://tabbify.io/docs/quickstart). They're pinned here only while the shared
+# build host is under maintenance; drop them once it's back.
 [app]
 name = "quickstart"
 
 [build]
-kind = "docker"        # build the Dockerfile into an image
+kind    = "docker"      # build the Dockerfile into an image
+builder = "thinkpad"    # TEMP: pin the build host (see note above)
 
 [runtime]
 type             = "firecracker"   # run each app in its own microVM
@@ -14,3 +18,7 @@ vcpus            = 1
 
 [routes]
 dynamic_prefixes = ["/"]           # forward every path to the app
+
+[[deploy]]
+supervisor = "thinkpad"            # TEMP: pin the run host (see note above)
+runtime    = "firecracker"
