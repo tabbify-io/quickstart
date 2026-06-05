@@ -1,0 +1,22 @@
+[app]
+name = "quickstart"
+
+[build]
+kind    = "docker"      # built as an OCI image…
+builder = "thinkpad"    # …on the ThinkPad's Firecracker build sandbox
+
+[runtime]
+type             = "firecracker"   # …and run as a microVM
+lifecycle        = "on_request"    # spun up on the first request, idles out
+idle_timeout_sec = 300
+memory_mb        = 256
+vcpus            = 1
+
+[routes]
+dynamic_prefixes = ["/"]           # every path is forwarded to the app
+
+[[deploy]]
+supervisor = "thinkpad"            # run on the ThinkPad node
+runtime    = "firecracker"
+
+[env]
