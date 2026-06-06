@@ -21,3 +21,5 @@ Full walkthrough: https://tabbify.io/docs/quickstart
 - `Dockerfile` — how the app is packaged (exec-form `ENTRYPOINT`).
 - `tabbify.toml` — what to build and where to run it.
 - `.github/workflows/deploy.yml` — the one-step deploy on every push.
+
+<!-- happy-path redeploy verify -->
